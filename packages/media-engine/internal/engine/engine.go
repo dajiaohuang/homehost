@@ -232,11 +232,7 @@ func (e *Engine) scan(ctx context.Context, jobID string, roots []string) {
 					e.logger.Warn("inspect failed", "path", path, "error", err)
 					continue
 				}
-				select {
-				case results <- asset:
-				case <-ctx.Done():
-					return
-				}
+				results <- asset
 			}
 		}()
 	}
